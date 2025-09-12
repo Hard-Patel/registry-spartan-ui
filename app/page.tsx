@@ -1,70 +1,39 @@
-import * as React from "react"
-import { OpenInV0Button } from "@/components/open-in-v0-button"
-import { HelloWorld } from "@/registry/new-york/blocks/hello-world/hello-world"
-import { ExampleForm } from "@/registry/new-york/blocks/example-form/example-form"
-import PokemonPage from "@/registry/new-york/blocks/complex-component/page"
-import { ExampleCard } from "@/registry/new-york/blocks/example-with-css/example-card"
-// This page displays items from the custom registry.
-// You are free to implement this with your own design as needed.
+import * as React from "react";
 
 export default function Home() {
   return (
     <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
-      <header className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight">Custom Registry</h1>
-        <p className="text-muted-foreground">
-          A custom registry for distributing code using shadcn.
-        </p>
+      <header className="flex flex-1 justify-between items-center flex-col gap-1">
+        <h1 className="text-3xl font-bold tracking-tight">
+          Spartan UI: Components Registry
+        </h1>
+        <div className="text-center">
+          <span className="my-4 text-xl">
+            Visit Website:{" "}
+            <a
+              className="text-blue-500 underline"
+              href="https://components-hardp.netlify.app/"
+            >
+              https://components-hardp.netlify.app/
+            </a>
+          </span>
+          <p className="text-muted-foreground">
+            A custom registry for distributing code using shadcn.
+          </p>
+        </div>
+        <div className="mt-8">
+          <h6 className="text-xl font-medium tracking-tight">
+            Made with React, Tailwind, Motion and ❤️ By{" "}
+            <a
+              target="_blank"
+              className="text-blue-500 underline"
+              href="https://hard-patel.netlify.app/"
+            >
+              Hard Patel
+            </a>
+          </h6>
+        </div>
       </header>
-      <main className="flex flex-col flex-1 gap-8">
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A simple hello world component
-            </h2>
-            <OpenInV0Button name="hello-world" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <HelloWorld />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A contact form with Zod validation.
-            </h2>
-            <OpenInV0Button name="example-form" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[500px] relative">
-            <ExampleForm />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A complex component showing hooks, libs and components.
-            </h2>
-            <OpenInV0Button name="complex-component" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <PokemonPage />
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A login form with a CSS file.
-            </h2>
-            <OpenInV0Button name="example-with-css" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <ExampleCard />
-          </div>
-        </div>
-      </main>
     </div>
-  )
+  );
 }
