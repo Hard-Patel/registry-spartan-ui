@@ -23,6 +23,143 @@
       ]
     },
     {
+      "name": "user-avatars",
+      "type": "registry:component",
+      "title": "User Avatars",
+      "description": "User avatars with scale and reveal animation with name visibility on hover",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/UserAvatars.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/UserAvatars.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "ai-card",
+      "type": "registry:component",
+      "title": "AI Card",
+      "description": "Card component that wraps childrens and can be easily used to highlight or give AI effect",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/AICard.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/AICard.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "suggestive-search",
+      "type": "registry:component",
+      "title": "Suggestive Search",
+      "description": "Search component with animated suggestions and effects",
+      "dependencies": ["motion", "tailwind-merge", "clsx", "lucide-react"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/SuggestiveSearch.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/SuggestiveSearch.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "progressive-hover-card",
+      "type": "registry:component",
+      "title": "Progressive Hover Card",
+      "description": "Card with progresive hover effect with smooth animation",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/ProgressiveHoverCard.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/ProgressiveHoverCard.tsx"
+        }
+      ]
+    },
+    {
+      "name": "text-reveal",
+      "type": "registry:component",
+      "title": "Text Reveal",
+      "description": "Text with animated effect of reveal",
+      "dependencies": ["tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/RevealText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/RevealText.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "card-3d",
+      "type": "registry:component",
+      "title": "Card3D",
+      "description": "Card component which gives 3d like effect on hover",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/Card3D.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/Card3D.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sparkle-card",
+      "type": "registry:component",
+      "title": "Sparkle Card",
+      "description": "Card component that have a sparkling effect in the background",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/SparkleCard.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/SparkleCard.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "glass-card",
+      "type": "registry:component",
+      "title": "Glass Card",
+      "description": "Card component that have Glass morphic effect",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/GlassCard.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/GlassCard.tsx"
+        }
+      ]
+    },
+    {
       "name": "hello-world",
       "type": "registry:component",
       "title": "Hello World",

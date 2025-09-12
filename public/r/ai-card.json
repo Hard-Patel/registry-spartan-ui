@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-card",
+  "type": "registry:component",
+  "title": "AI Card",
+  "description": "Card component that wraps childrens and can be easily used to highlight or give AI effect",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/AICard.tsx",
+      "content": "import cn from \"clsx\";\nimport { motion } from \"motion/react\";\nimport { ReactNode } from \"react\";\n\ntype AICardProps = {\n  children: ReactNode;\n  /** Gradient colors for border */\n  gradient?: string[];\n  /** Border radius */\n  rounded?: string;\n  /** Whether gradient should animate */\n  animate?: boolean;\n  /** Speed of animation in seconds */\n  duration?: number;\n  /** Extra class names for wrapper */\n  className?: string;\n};\n\nexport default function AICard({\n  children,\n  gradient = [\"#ff00ff\", \"#00ffff\", \"#ff9900\", \"#ff00ff\"],\n  rounded = \"\",\n  animate = false,\n  duration = 6,\n  className,\n}: AICardProps) {\n  return (\n    <div className={cn(\"relative\", `rounded-${rounded}`, className)}>\n      <div className=\"absolute top-1/2 left-1/2-translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%]\">\n        <motion.div\n          aria-hidden\n          className={`absolute inset-0 rounded-${rounded} pointer-events-none scale-[1.02] filter blur-xl`}\n          style={{\n            background: `conic-gradient(${gradient.join(\", \")})`,\n            opacity: 0.2, // inner edge highest opacity\n            willChange: \"transform, filter\",\n          }}\n        />\n      </div>\n\n      <div\n        className={cn(\n          \"relative p-[1px] overflow-hidden\",\n          `rounded-${rounded}`,\n          className\n        )}\n      >\n        {/* Border layer */}\n        {animate ? (\n          <div className=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[102%] aspect-[1/1]\">\n            <motion.div\n              className=\"w-full h-full\"\n              style={{\n                background: `conic-gradient(${gradient.join(\", \")})`,\n                willChange: \"transform\",\n              }}\n              animate={{ rotate: 360 }}\n              transition={{ repeat: Infinity, ease: \"linear\", duration }}\n            />\n          </div>\n        ) : (\n          <div\n            className=\"absolute inset-0\"\n            style={{\n              background: `linear-gradient(90deg, ${gradient.join(\", \")})`,\n            }}\n          />\n        )}\n\n        {/* Mask inner content with bg */}\n        <div\n          className={`relative bg-background rounded-${rounded} w-full h-full`}\n        >\n          {children}\n        </div>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/AICard.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

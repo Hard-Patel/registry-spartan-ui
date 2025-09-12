@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sparkle-card",
+  "type": "registry:component",
+  "title": "Sparkle Card",
+  "description": "Card component that have a sparkling effect in the background",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/SparkleCard.tsx",
+      "content": "import clsx from \"clsx\";\nimport { motion } from \"motion/react\";\nimport { useEffect, useState } from \"react\";\n\ntype SparkleCardProps = {\n  children: React.ReactNode;\n  className?: string;\n  /** Number of sparkles */\n  sparkles?: number;\n  /** Duration of one sparkle cycle */\n  duration?: number;\n};\n\ntype Sparkle = { id: number; x: number; y: number };\n\nfunction getRandomSparkle(id: number): Sparkle {\n  return {\n    id,\n    x: Math.random() * 100, // %\n    y: Math.random() * 100,\n  };\n}\n\nexport function SparkleCard({\n  children,\n  className,\n  sparkles = 15,\n  duration = 3,\n}: SparkleCardProps) {\n  const [dots, setDots] = useState<Sparkle[]>([]);\n\n  useEffect(() => {\n    setDots(Array.from({ length: sparkles }, (_, i) => getRandomSparkle(i)));\n  }, [sparkles]);\n\n  const respawnSparkle = (id: number) => {\n    setDots((prev) =>\n      prev.map((dot) => (dot.id === id ? getRandomSparkle(id) : dot))\n    );\n  };\n\n  return (\n    <div\n      className={clsx(\n        \"relative overflow-hidden rounded-2xl border border-border p-6 bg-background shadow-md\",\n        className\n      )}\n    >\n      {/* Sparkles background */}\n      <div className=\"absolute inset-0 pointer-events-none\">\n        {dots.map((dot) => (\n          <motion.span\n            key={dot.id + \"-\" + dot.x + \"-\" + dot.y} // key changes to reset animation\n            className=\"absolute\"\n            style={{\n              top: `${dot.y}%`,\n              left: `${dot.x}%`,\n            }}\n            animate={{\n              opacity: [0, 0.8, 0],\n              scale: [0.5, 1, 0.5],\n            }}\n            transition={{\n              duration,\n              repeat: 0, // play once\n              delay: Math.random() * duration, // stagger\n            }}\n            onAnimationComplete={() => respawnSparkle(dot.id)}\n          >\n            {/* Tailwind handles theme: white in dark, black in light */}\n            <span className=\"block w-0.5 h-0.5 rounded-full bg-black dark:bg-white\" />\n          </motion.span>\n        ))}\n      </div>\n\n      {/* Card content */}\n      <div className=\"relative z-10\">{children}</div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/SparkleCard.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

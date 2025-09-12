@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "glass-card",
+  "type": "registry:component",
+  "title": "Glass Card",
+  "description": "Card component that have Glass morphic effect",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/ui/GlassCard.tsx",
+      "content": "import { ReactNode } from \"react\";\n\ntype GlassCardProps = {\n  children: ReactNode;\n  className?: string;\n};\n\nexport function GlassCard({ children, className = \"\" }: GlassCardProps) {\n  return (\n    <div\n      className={`relative p-6 rounded-2xl border \n        border-foreground/10 bg-foreground/5 \n        backdrop-blur-lg shadow-lg \n        overflow-hidden ${className}`}\n    >\n      {/* subtle gradient overlay */}\n      <div className=\"absolute inset-0 bg-gradient-to-tr from-white/20 via-transparent to-white/5 rounded-2xl pointer-events-none\" />\n\n      {/* content */}\n      <div className=\"relative z-10\">{children}</div>\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/GlassCard.tsx"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-reveal",
+  "type": "registry:component",
+  "title": "Text Reveal",
+  "description": "Text with animated effect of reveal",
+  "dependencies": [
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/RevealText.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\nimport { useEffect, useState } from \"react\";\n\nconst CharacterReveal = ({ isAnimating = false, char, delay }) => {\n  const [isVisible, setIsVisible] = useState(false);\n\n  useEffect(() => {\n    if (isAnimating) {\n      const timer = setTimeout(() => setIsVisible(true), delay);\n      return () => clearTimeout(timer);\n    } else {\n      setIsVisible(false);\n    }\n  }, [isAnimating, delay]);\n\n  return (\n    <span\n      className={`inline-block transition-all duration-700 ease-out ${\n        isVisible\n          ? \"transform translate-y-0 filter blur-0 opacity-100\"\n          : \"transform translate-y-8 filter blur-md opacity-0\"\n      }`}\n    >\n      {char}\n    </span>\n  );\n};\n\nconst TextReveal = ({\n  text = [\"How are you?\"],\n  duration = 80,\n  textClassName = \"text-4xl font-semibold\",\n}) => {\n  const [isAnimating, setIsAnimating] = useState(false);\n\n  const startAnimation = () => {\n    setIsAnimating(false);\n    setTimeout(() => setIsAnimating(true), 100);\n  };\n\n  useEffect(() => {\n    startAnimation();\n  }, []);\n\n  // Calculate total character count up to current position\n  const getTotalCharacterDelay = (lineIndex, charIndex) => {\n    let totalChars = 0;\n    for (let i = 0; i < lineIndex; i++) {\n      totalChars += text[i].length;\n    }\n    return (totalChars + charIndex) * duration;\n  };\n\n  return (\n    <div className=\"flex items-center justify-center\">\n      <div className=\"text-center\">\n        {text.map((line, lineIndex) => (\n          <div key={`line-${lineIndex}`} className=\"mb-2 last:mb-0\">\n            <h1\n              className={cn(textClassName, \"leading-none\")}\n              style={{ whiteSpace: \"pre\" }}\n            >\n              {line.split(\"\").map((char, charIndex) => (\n                <span key={`line-${lineIndex}-char-${charIndex}`}>\n                  <CharacterReveal\n                    isAnimating={isAnimating}\n                    char={char}\n                    delay={getTotalCharacterDelay(lineIndex, charIndex)}\n                  />\n                </span>\n              ))}\n            </h1>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n};\n\nexport { TextReveal };\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/RevealText.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}
