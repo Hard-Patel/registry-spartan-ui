@@ -9,7 +9,7 @@ export const BubbleText = ({
 }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseEnter = () => {
     setIsHovering(true);
