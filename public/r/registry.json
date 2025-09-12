@@ -4,6 +4,134 @@
   "homepage": "https://acme.com",
   "items": [
     {
+      "name": "aurora-text",
+      "type": "registry:component",
+      "title": "Aurora Text",
+      "description": "Animated Aurora Text component that animates the gradients inside the text",
+      "dependencies": ["clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/AuroraText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/AuroraText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "cursor-aware-button",
+      "type": "registry:component",
+      "title": "Cursor Aware Button",
+      "description": "Button which have the cursor aware ripple effect animations",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/CursorAwareButton.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/CursorAwareButton.tsx"
+        }
+      ]
+    },
+    {
+      "name": "focused-text",
+      "type": "registry:component",
+      "title": "Focused Text",
+      "description": "Focus effect on hover for the text or children component from the wrapper",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/FocusedText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/FocusedText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "animated-theme-toggle",
+      "type": "registry:component",
+      "title": "Animated Theme Toggle",
+      "description": "Animated Button to Toggle the theme with ripple effect, giving a great UX",
+      "dependencies": [
+        "motion",
+        "react-dom",
+        "lucide-react",
+        "tailwind-merge",
+        "clsx"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/ui/AnimatedThemeToggler.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/AnimatedThemeToggler.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "video-masked-text",
+      "type": "registry:component",
+      "title": "Video Masked Text",
+      "description": "Text with the video background which is visible through the masked effect",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/VideoMaskedText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/VideoMaskedText.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "masked-text",
+      "type": "registry:component",
+      "title": "Masked Text",
+      "description": "Text with the background image which is visible through the masked effect",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/MaskedText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/MaskedText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "scroll-progress",
+      "type": "registry:component",
+      "title": "Scroll Progress",
+      "description": "Scroll Progress Component which can be used to add the progress view in top, bottom, left or right view",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/ScrollProgress.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/ScrollProgress.tsx"
+        }
+      ]
+    },
+    {
+      "name": "scroll-nav",
+      "type": "registry:component",
+      "title": "Scrollbar with ToC",
+      "description": "Scrollbar that lets you see the progress and move to the specific section as well",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/ScrollNav.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/ScrollNav.tsx"
+        }
+      ]
+    },
+    {
       "name": "bubble-text",
       "type": "registry:component",
       "title": "Bubble Text",

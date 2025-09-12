@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "video-masked-text",
+  "type": "registry:component",
+  "title": "Video Masked Text",
+  "description": "Text with the video background which is visible through the masked effect",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/VideoMaskedText.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\nimport React, { ElementType, ReactNode, useEffect, useState } from \"react\";\n\nexport interface VideoTextProps {\n  /** The video source URL */\n  src: string;\n  /** The text that will reveal the video */\n  children: ReactNode;\n  /** Extra Tailwind classes */\n  className?: string;\n  /** Font size for the masked text (default: 20vw) */\n  fontSize?: string | number;\n  /** Font weight (default: bold) */\n  fontWeight?: string | number;\n  /** Font family (default: sans-serif) */\n  fontFamily?: string;\n  /** Wrapper element type (default: div) */\n  as?: ElementType;\n}\n\nexport function VideoMaskedText({\n  src,\n  children,\n  className = \"\",\n  fontSize = 20,\n  fontWeight = \"bold\",\n  fontFamily = \"sans-serif\",\n  as: Component = \"div\",\n}: VideoTextProps) {\n  const [svgMask, setSvgMask] = useState(\"\");\n  const content = React.Children.toArray(children).join(\"\");\n\n  useEffect(() => {\n    const updateSvgMask = () => {\n      const responsiveFontSize =\n        typeof fontSize === \"number\" ? `${fontSize}vw` : fontSize;\n\n      const newSvgMask = `\n        <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'>\n          <text x='50%' y='50%' \n            font-size='${responsiveFontSize}' \n            font-weight='${fontWeight}' \n            text-anchor='middle' \n            dominant-baseline='middle' \n            font-family='${fontFamily}'>\n            ${content}\n          </text>\n        </svg>`;\n\n      setSvgMask(newSvgMask);\n    };\n\n    updateSvgMask();\n    window.addEventListener(\"resize\", updateSvgMask);\n    return () => window.removeEventListener(\"resize\", updateSvgMask);\n  }, [content, fontSize, fontWeight, fontFamily]);\n\n  const dataUrlMask = `url(\"data:image/svg+xml,${encodeURIComponent(\n    svgMask\n  )}\")`;\n\n  return (\n    <Component className={cn(\"relative w-full h-full\", className)}>\n      {/* Video masked by text */}\n      <div\n        className=\"absolute inset-0 flex items-center justify-center\"\n        style={{\n          maskImage: dataUrlMask,\n          WebkitMaskImage: dataUrlMask,\n          maskSize: \"contain\",\n          WebkitMaskSize: \"contain\",\n          maskRepeat: \"no-repeat\",\n          WebkitMaskRepeat: \"no-repeat\",\n          maskPosition: \"center\",\n          WebkitMaskPosition: \"center\",\n        }}\n      >\n        <video\n          className=\"w-full h-full object-cover\"\n          autoPlay\n          muted\n          loop\n          playsInline\n        >\n          <source src={src} />\n          Your browser does not support the video tag.\n        </video>\n      </div>\n\n      {/* Accessible fallback text */}\n      <span className=\"sr-only\">{content}</span>\n    </Component>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/VideoMaskedText.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cursor-aware-button",
+  "type": "registry:component",
+  "title": "Cursor Aware Button",
+  "description": "Button which have the cursor aware ripple effect animations",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/CursorAwareButton.tsx",
+      "content": "import { motion } from \"motion/react\";\nimport { useRef, useState } from \"react\";\n\nexport const CursorAwareButton = ({\n  children = <></>,\n  defaultColor = \"bg-white\",\n  hoverColor = \"bg-yellow-400\",\n  textColor = \"text-gray-900\",\n  hoverTextColor = \"text-gray-900\",\n  borderColor = \"border-gray-300\",\n  rounded = \"rounded-full\",\n  size = \"px-8 py-3\",\n  className = \"\",\n  onClick = () => {},\n}) => {\n  const [isHovered, setIsHovered] = useState(false);\n  const buttonRef = useRef<HTMLButtonElement>(null);\n\n  // Use refs to store position immediately without state delays\n  const cursorX = useRef(50);\n  const cursorY = useRef(50);\n  const [animationKey, setAnimationKey] = useState(0);\n\n  const handleMouseEnter = (e: any) => {\n    if (buttonRef.current) {\n      const rect = buttonRef.current.getBoundingClientRect();\n      const x = ((e.clientX - rect.left) / rect.width) * 100;\n      const y = ((e.clientY - rect.top) / rect.height) * 100;\n\n      // Update refs immediately\n      cursorX.current = x;\n      cursorY.current = y;\n\n      // Force re-render with new animation\n      setAnimationKey((prev) => prev + 1);\n      setIsHovered(true);\n    } else {\n      setIsHovered(true);\n    }\n  };\n\n  const handleMouseLeave = () => {\n    setIsHovered(false);\n  };\n\n  return (\n    <motion.button\n      ref={buttonRef}\n      className={`relative overflow-hidden ${defaultColor} ${textColor} ${borderColor} ${rounded} ${size} ${className} border-2 font-medium transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-yellow-200`}\n      onMouseEnter={handleMouseEnter}\n      onMouseLeave={handleMouseLeave}\n      onClick={onClick}\n      whileHover={{ scale: 1.02 }}\n      whileTap={{ scale: 0.98 }}\n    >\n      {/* Background animation layer */}\n      <motion.div\n        key={animationKey}\n        className={`absolute inset-0 ${hoverColor} ${rounded}`}\n        initial={{\n          clipPath: `circle(0% at ${cursorX.current}% ${cursorY.current}%)`,\n          opacity: 0,\n        }}\n        animate={\n          isHovered\n            ? {\n                clipPath: `circle(150% at ${cursorX.current}% ${cursorY.current}%)`,\n                opacity: 1,\n              }\n            : {\n                clipPath: `circle(0% at ${cursorX.current}% ${cursorY.current}%)`,\n                opacity: 0,\n              }\n        }\n        transition={{\n          duration: 0.4,\n          ease: [0.4, 0, 0.2, 1],\n          opacity: { duration: 0.1 },\n        }}\n      />\n\n      {/* Text content */}\n      <span\n        className={`relative z-10 transition-colors duration-200 ${\n          isHovered ? hoverTextColor : textColor\n        }`}\n      >\n        {children}\n      </span>\n    </motion.button>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/CursorAwareButton.tsx"
+    }
+  ]
+}

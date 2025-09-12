@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "animated-theme-toggle",
+  "type": "registry:component",
+  "title": "Animated Theme Toggle",
+  "description": "Animated Button to Toggle the theme with ripple effect, giving a great UX",
+  "dependencies": [
+    "motion",
+    "react-dom",
+    "lucide-react",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/AnimatedThemeToggler.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\nimport { LucideProps, Moon, Sun } from \"lucide-react\";\nimport { AnimatePresence, motion } from \"motion/react\";\nimport {\n  ForwardRefExoticComponent,\n  RefAttributes,\n  useRef,\n  useState,\n} from \"react\";\nimport { flushSync } from \"react-dom\";\n\ntype props = {\n  className?: string;\n  DarkIcon?: ForwardRefExoticComponent<\n    Omit<LucideProps, \"ref\"> & RefAttributes<SVGSVGElement>\n  >;\n  LightIcon?: ForwardRefExoticComponent<\n    Omit<LucideProps, \"ref\"> & RefAttributes<SVGSVGElement>\n  >;\n};\n\nexport const AnimatedThemeToggle = ({\n  className,\n  DarkIcon = Sun,\n  LightIcon = Moon,\n}: props) => {\n  const [isDarkMode, setIsDarkMode] = useState<boolean>(\n    (window.matchMedia(\"(prefers-color-scheme: dark)\").matches\n      ? \"dark\"\n      : \"light\") === \"dark\"\n  );\n  const buttonRef = useRef<HTMLButtonElement | null>(null);\n  const changeTheme = async () => {\n    if (!buttonRef.current) return;\n\n    await document.startViewTransition(() => {\n      flushSync(() => {\n        const dark = document.documentElement.classList.toggle(\"dark\");\n        setIsDarkMode(dark);\n      });\n    }).ready;\n\n    const { top, left, width, height } =\n      buttonRef.current.getBoundingClientRect();\n    const y = top + height / 2;\n    const x = left + width / 2;\n\n    const right = window.innerWidth - left;\n    const bottom = window.innerHeight - top;\n    const maxRad = Math.hypot(Math.max(left, right), Math.max(top, bottom));\n\n    document.documentElement.animate(\n      {\n        clipPath: [\n          `circle(0px at ${x}px ${y}px)`,\n          `circle(${maxRad}px at ${x}px ${y}px)`,\n        ],\n      },\n      {\n        duration: 700,\n        easing: \"ease-in-out\",\n        pseudoElement: \"::view-transition-new(root)\",\n      }\n    );\n  };\n\n  return (\n    <button\n      ref={buttonRef}\n      onClick={changeTheme}\n      className={cn(\n        \"relative p-2 bg-secondary rounded-full overflow-hidden\",\n        className\n      )}\n    >\n      <AnimatePresence mode=\"wait\" initial={false}>\n        {isDarkMode ? (\n          <motion.span\n            key=\"sun\"\n            initial={{ rotate: 90, opacity: 0 }}\n            animate={{ rotate: 0, opacity: 1 }}\n            exit={{ rotate: -90, opacity: 0 }}\n            transition={{ duration: 0.4 }}\n            className=\"inset-0 flex items-center justify-center\"\n          >\n            <LightIcon className=\"size-5\" />\n          </motion.span>\n        ) : (\n          <motion.span\n            key=\"moon\"\n            initial={{ rotate: 90, opacity: 0 }}\n            animate={{ rotate: 0, opacity: 1 }}\n            exit={{ rotate: -90, opacity: 0 }}\n            transition={{ duration: 0.4 }}\n            className=\"inset-0 flex items-center justify-center\"\n          >\n            <DarkIcon className=\"size-5\" />\n          </motion.span>\n        )}\n      </AnimatePresence>\n    </button>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/AnimatedThemeToggler.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

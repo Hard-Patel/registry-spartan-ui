@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "masked-text",
+  "type": "registry:component",
+  "title": "Masked Text",
+  "description": "Text with the background image which is visible through the masked effect",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/MaskedText.tsx",
+      "content": "import React, { useState } from \"react\";\n\ntype MaskedTextProps = {\n  text: string;\n  imageUrl: string;\n  className?: string;\n};\n\nexport const MaskedText: React.FC<MaskedTextProps> = ({\n  text,\n  imageUrl,\n  className = \"\",\n}) => {\n  const [isLoaded, setIsLoaded] = useState(false);\n\n  return (\n    <>\n      {/* Hidden preloader for the image */}\n      <img\n        src={imageUrl}\n        alt=\"\"\n        onLoad={() => setIsLoaded(true)}\n        style={{ display: \"none\" }}\n      />\n\n      <div\n        className={`relative inline-block text-6xl font-extrabold ${className}  ${\n          isLoaded ? \"text-transparent\" : \"text-foreground\"\n        }`}\n        style={\n          isLoaded\n            ? {\n                backgroundImage: `url(${imageUrl})`,\n                backgroundSize: \"cover\",\n                backgroundPosition: \"center\",\n                WebkitBackgroundClip: \"text\",\n                color: \"transparent\",\n              }\n            : {}\n        }\n      >\n        {text}\n      </div>\n    </>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/MaskedText.tsx"
+    }
+  ]
+}

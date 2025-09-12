@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-nav",
+  "type": "registry:component",
+  "title": "Scrollbar with ToC",
+  "description": "Scrollbar that lets you see the progress and move to the specific section as well",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/ScrollNav.tsx",
+      "content": "import { motion, useScroll } from \"motion/react\";\nimport { useEffect, useState } from \"react\";\n\ntype Section = {\n  id: string;\n  label: string;\n};\n\ntype ScrollNavProps = {\n  sections: Section[];\n  headerOffset?: number; // configurable instead of magic number\n};\n\nexport function ScrollNav({ sections, headerOffset = -72 }: ScrollNavProps) {\n  const { scrollYProgress } = useScroll();\n  const [sectionOffsets, setSectionOffsets] = useState<number[]>([]);\n\n  useEffect(() => {\n    const computeOffsets = () => {\n      const doc = document.documentElement;\n      const scrollRange = Math.max(1, doc.scrollHeight - window.innerHeight);\n\n      const offsets = sections.map((s, i) => {\n        const el = document.getElementById(s.id);\n        if (!el) return 0;\n\n        const targetY =\n          i === 0\n            ? 0\n            : el.getBoundingClientRect().top + window.scrollY + headerOffset;\n\n        const clamped = Math.min(Math.max(targetY, 0), scrollRange);\n        return clamped / scrollRange;\n      });\n\n      setSectionOffsets(offsets);\n    };\n\n    computeOffsets();\n    window.addEventListener(\"resize\", computeOffsets);\n    return () => window.removeEventListener(\"resize\", computeOffsets);\n  }, [sections, headerOffset]);\n\n  const handleScrollTo = (id: string, index: number) => {\n    const el = document.getElementById(id);\n    if (el) {\n      const y =\n        index === 0\n          ? 0\n          : el.getBoundingClientRect().top + window.scrollY + headerOffset;\n\n      window.scrollTo({ top: y, behavior: \"smooth\" });\n    }\n  };\n\n  return (\n    <div className=\"fixed right-0 bottom-0 h-[calc(100vh-var(--header-height))] flex items-center justify-center z-50\">\n      <div className=\"relative h-full w-3 bg-muted rounded-full overflow-hidden\">\n        <motion.div\n          className=\"top-0 left-0 w-full bg-primary/50\"\n          style={{\n            scaleY: scrollYProgress,\n            height: \"100%\",\n            transformOrigin: \"0% 0%\",\n          }}\n        />\n      </div>\n\n      {sectionOffsets.map((offset, i) => (\n        <div\n          key={sections[i].id}\n          className=\"absolute left-1/2 -translate-x-1/2\"\n          style={{ top: `${offset * 100}%` }}\n        >\n          <button\n            onClick={() => handleScrollTo(sections[i].id, i)}\n            className=\"group relative w-3 h-3 rounded-full bg-background border border-primary shadow hover:bg-primary transition\"\n          >\n            <span className=\"absolute right-5 top-1/2 -translate-y-1/2 whitespace-nowrap px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition\">\n              {sections[i].label}\n            </span>\n          </button>\n        </div>\n      ))}\n    </div>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/ScrollNav.tsx"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-progress",
+  "type": "registry:component",
+  "title": "Scroll Progress",
+  "description": "Scroll Progress Component which can be used to add the progress view in top, bottom, left or right view",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/ScrollProgress.tsx",
+      "content": "import { motion, useScroll } from \"motion/react\";\nimport { RefObject } from \"react\";\n\ntype Position = \"top\" | \"right\";\n\ntype ScrollProgressProps = {\n  /** Ref of the scrollable container */\n  targetRef?: RefObject<HTMLElement>;\n  /** Optional: thickness of the progress bar */\n  size?: number;\n  /** Optional: className for styling */\n  className?: string;\n  /** Position of the bar */\n  position?: Position;\n};\n\nconst ScrollProgress = ({\n  targetRef,\n  size = 3,\n  className,\n  position = \"top\",\n}: ScrollProgressProps) => {\n  const { scrollYProgress } = useScroll({\n    container: targetRef,\n  });\n\n  return (\n    <motion.div\n      className={`bg-primary ${targetRef ? \"\" : \"fixed\"} ${className || \"\"}`}\n      style={\n        position === \"top\"\n          ? {\n              scaleX: scrollYProgress,\n              position: \"sticky\",\n              top: 0,\n              left: 0,\n              height: size,\n              transformOrigin: \"0% 0%\",\n              zIndex: 9999,\n            }\n          : {\n              scaleY: scrollYProgress,\n              position: \"sticky\",\n              top: 0,\n              left: \"100%\",\n              width: size,\n              height: \"100%\",\n              transformOrigin: \"0% 0%\",\n              zIndex: 9999,\n            }\n      }\n    />\n  );\n};\n\nexport { ScrollProgress };\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/ScrollProgress.tsx"
+    }
+  ]
+}

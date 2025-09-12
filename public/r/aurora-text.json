@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aurora-text",
+  "type": "registry:component",
+  "title": "Aurora Text",
+  "description": "Animated Aurora Text component that animates the gradients inside the text",
+  "dependencies": [
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/AuroraText.tsx",
+      "content": "import cn from \"clsx\"; // optional, but handy. If you don't want this dependency, replace with simple string concat.\n\ntype AuroraType = \"always\" | \"hover\";\n\ntype Props = {\n  text: string;\n  /** \"always\" = animation runs continuously; \"hover\" = animation only on hover */\n  type?: AuroraType;\n  /**\n   * Pass gradient stop classes (without the `bg-gradient-to-r` prefix).\n   * Example: \"from-red-500 via-yellow-400 to-pink-500\"\n   * If omitted, defaults to: \"from-primary-foreground via-yellow-500 to-pink-500\"\n   */\n  gradient?: string;\n  className?: string;\n};\n\nconst AuroraText = ({\n  text,\n  type = \"always\",\n  gradient = \"from-primary-foreground via-yellow-500 to-pink-500\",\n  className,\n}: Props) => {\n  // Build classes. We include bg-gradient-to-r here so parent only needs to pass stops.\n  const gradientClass = `bg-gradient-to-r ${gradient}`;\n\n  // If type is \"hover\" use the hover variant; otherwise animate always.\n  // Tailwind supports `hover:animate-*`. If you prefer group-hover you can easily adapt.\n  const animationClass =\n    type === \"hover\" ? \"hover:animate-aurora\" : \"animate-aurora\";\n\n  return (\n    <span\n      // keep bg-clip/text-transparent for the gradient text. Add webkit inline fallback for Safari.\n      className={cn(\n        \"text-5xl font-bold bg-[length:200%_200%] bg-clip-text text-transparent\",\n        gradientClass,\n        animationClass,\n        className\n      )}\n    >\n      {text}\n    </span>\n  );\n};\n\nexport { AuroraText };\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/AuroraText.tsx"
+    }
+  ]
+}
