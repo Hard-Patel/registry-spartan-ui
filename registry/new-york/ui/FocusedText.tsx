@@ -10,7 +10,7 @@ type TextAnimationProps = {
   fontWeight?: string;
   duration?: number;
   direction?: "up" | "down" | "left" | "right";
-  ease?: number[];
+  ease?: [number, number, number, number];
 };
 
 export const FocusedText = ({
@@ -21,12 +21,11 @@ export const FocusedText = ({
   fontSize = "text-base",
   fontWeight = "font-medium",
   duration = 0.3,
-  direction = "up", // 'up', 'down', 'left', 'right'
+  direction = "up",
   ease = [0.25, 0.1, 0.25, 1],
 }: TextAnimationProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Direction configurations
   const directions = {
     up: {
       initial: { y: "-100%" },
@@ -56,7 +55,6 @@ export const FocusedText = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative">
-        {/* Original text */}
         <motion.span
           className={`inline-block ${fontSize} ${fontWeight} ${textColor}`}
           initial={{ y: 0, x: 0 }}
@@ -84,7 +82,6 @@ export const FocusedText = ({
           {children}
         </motion.span>
 
-        {/* Sliding text */}
         <motion.span
           className={`absolute top-0 left-0 inline-block ${fontSize} ${fontWeight} ${finalTextColor}`}
           initial={currentDirection.initial}
