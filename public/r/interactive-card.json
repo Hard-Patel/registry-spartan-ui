@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "interactive-card",
+  "type": "registry:component",
+  "title": "Interactive Card",
+  "description": "Card with tilt effect and animated border on hover",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/InteractiveCard.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\nimport { motion, useMotionValue, useSpring, useTransform } from \"motion/react\";\nimport { useState } from \"react\";\n\ninterface InteractiveCardProps {\n  children: React.ReactNode;\n  className?: string;\n}\n\nexport const InteractiveCard = ({\n  children,\n  className,\n}: InteractiveCardProps) => {\n  const [isHovered, setIsHovered] = useState(false);\n  const x = useMotionValue(0);\n  const y = useMotionValue(0);\n\n  const mouseXSpring = useSpring(x);\n  const mouseYSpring = useSpring(y);\n\n  const rotateX = useTransform(\n    mouseYSpring,\n    [-0.5, 0.5],\n    [\"7.5deg\", \"-7.5deg\"]\n  );\n  const rotateY = useTransform(\n    mouseXSpring,\n    [-0.5, 0.5],\n    [\"-7.5deg\", \"7.5deg\"]\n  );\n\n  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {\n    const rect = e.currentTarget.getBoundingClientRect();\n    const width = rect.width;\n    const height = rect.height;\n    const mouseX = e.clientX - rect.left;\n    const mouseY = e.clientY - rect.top;\n    const xPct = mouseX / width - 0.5;\n    const yPct = mouseY / height - 0.5;\n    x.set(xPct);\n    y.set(yPct);\n  };\n\n  const handleMouseLeave = () => {\n    setIsHovered(false);\n    x.set(0);\n    y.set(0);\n  };\n\n  return (\n    <motion.div\n      className={cn(\"component-card p-6 cursor-pointer\", className)}\n      style={{\n        rotateY,\n        rotateX,\n        transformStyle: \"preserve-3d\",\n      }}\n      onMouseMove={handleMouseMove}\n      onMouseEnter={() => setIsHovered(true)}\n      onMouseLeave={handleMouseLeave}\n      whileHover={{ scale: 1.02 }}\n    >\n      <motion.div\n        className=\"relative z-10\"\n        style={{ transform: \"translateZ(50px)\" }}\n      >\n        {children}\n      </motion.div>\n\n      {isHovered && (\n        <motion.div\n          className=\"absolute inset-0 rounded-xl border-2 border-primary/50\"\n          initial={{ opacity: 0 }}\n          animate={{ opacity: 1 }}\n          exit={{ opacity: 0 }}\n        />\n      )}\n    </motion.div>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/InteractiveCard.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

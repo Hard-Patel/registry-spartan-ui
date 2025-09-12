@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "typewriter-text",
+  "type": "registry:component",
+  "title": "Typewriter Text",
+  "description": "Typewriter effect for text which can be configured as per usecases",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/ui/TypewriterText.tsx",
+      "content": "import React, { useEffect, useState } from \"react\";\n\ninterface TypewriterTextProps {\n  text: string;\n  className?: string;\n  duration?: number;    // Duration in ms between each character\n  loop?: boolean;\n  withCursor?: boolean; // Show blinking cursor\n}\n\nexport const TypewriterText: React.FC<TypewriterTextProps> = ({\n  text,\n  duration = 100,\n  loop = false,\n  className = \"\",\n  withCursor = false,\n}) => {\n  const [displayedText, setDisplayedText] = useState(\"\");\n  const [index, setIndex] = useState(0);\n  const [isDeleting, setIsDeleting] = useState(false);\n  const [showCursor, setShowCursor] = useState(true);\n\n  // Typewriter logic\n  useEffect(() => {\n    let timeout: NodeJS.Timeout;\n\n    if (!isDeleting && index <= text.length) {\n      timeout = setTimeout(() => {\n        setDisplayedText(text.substring(0, index));\n        setIndex((prev) => prev + 1);\n      }, duration);\n    } else if (isDeleting && index >= 0) {\n      timeout = setTimeout(() => {\n        setDisplayedText(text.substring(0, index));\n        setIndex((prev) => prev - 1);\n      }, duration);\n    } else if (loop) {\n      timeout = setTimeout(() => {\n        setIsDeleting((prev) => !prev);\n        if (!isDeleting) {\n          setIndex(text.length - 1); // Start deleting\n        } else {\n          setIndex(0); // Start typing again\n        }\n      }, 2000);\n    }\n\n    return () => clearTimeout(timeout);\n  }, [index, isDeleting, text, duration, loop]);\n\n  // Cursor blinking logic\n  useEffect(() => {\n    if (withCursor) {\n      const cursorInterval = setInterval(() => {\n        setShowCursor((prev) => !prev);\n      }, 500);\n\n      return () => clearInterval(cursorInterval);\n    }\n  }, [withCursor]);\n\n  return (\n    <div>\n      <span\n        className={className}\n        style={{ display: \"inline-block\", whiteSpace: \"pre-wrap\" }}\n      >\n        {displayedText}\n        {withCursor && showCursor ? \"|\" : \" \"}\n      </span>\n    </div>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/TypewriterText.tsx"
+    }
+  ]
+}

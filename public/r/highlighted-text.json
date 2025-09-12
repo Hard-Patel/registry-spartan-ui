@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "highlighted-text",
+  "type": "registry:component",
+  "title": "HighlightedText",
+  "description": "Text with animated highlight background effect",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/HighlightedText.tsx",
+      "content": "import { motion } from \"motion/react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface HighlightedTextProps {\n  children: React.ReactNode;\n  className?: string;\n  highlightColor?: string;\n  delay?: number;\n}\n\nexport const HighlightedText = ({\n  children,\n  className,\n  highlightColor = \"hsl(var(--primary))\",\n  delay = 0,\n}: HighlightedTextProps) => {\n  return (\n    <span className={cn(\"relative inline-block\", className)}>\n      <motion.span\n        className=\"absolute inset-0 -z-10 rounded-md\"\n        style={{ backgroundColor: highlightColor + \"/20\" }}\n        initial={{ scaleX: 0 }}\n        animate={{ scaleX: 1 }}\n        transition={{\n          duration: 0.6,\n          delay,\n          ease: \"easeOut\",\n        }}\n      />\n      <span className=\"relative z-10 px-1\">{children}</span>\n    </span>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/HighlightedText.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

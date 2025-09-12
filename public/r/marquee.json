@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "marquee",
+  "type": "registry:component",
+  "title": "Marquee",
+  "description": "Smooth infinite scrolling text marquee with customizable speed",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/Marquee.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\nimport { motion } from \"motion/react\";\n\ninterface MarqueeProps {\n  children: React.ReactNode;\n  speed?: number;\n  direction?: \"left\" | \"right\";\n  className?: string;\n  pauseOnHover?: boolean;\n}\n\nexport const Marquee = ({\n  children,\n  speed = 50,\n  direction = \"left\",\n  className,\n  pauseOnHover = true,\n}: MarqueeProps) => {\n  return (\n    <div className={cn(\"overflow-hidden whitespace-nowrap\", className)}>\n      <motion.div\n        className=\"inline-block\"\n        animate={{\n          x: direction === \"left\" ? [0, -1000] : [-1000, 0],\n        }}\n        transition={{\n          x: {\n            repeat: Infinity,\n            repeatType: \"loop\",\n            duration: speed,\n            ease: \"linear\",\n          },\n        }}\n        whileHover={pauseOnHover ? { animationPlayState: \"paused\" } : {}}\n      >\n        {children}\n      </motion.div>\n    </div>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/Marquee.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

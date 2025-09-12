@@ -4,6 +4,143 @@
   "homepage": "https://acme.com",
   "items": [
     {
+      "name": "hyper-text",
+      "type": "registry:component",
+      "title": "Hyper Text",
+      "description": "Animated Hyper Text component that reveals the actual text with defined delay and animation",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/HyperText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/HyperText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "animated-button",
+      "type": "registry:component",
+      "title": "Animated Button",
+      "description": "A sleek button with hover animations and gradient background",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/AnimatedButton.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/AnimatedButton.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "highlighted-text",
+      "type": "registry:component",
+      "title": "HighlightedText",
+      "description": "Text with animated highlight background effect",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/HighlightedText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/HighlightedText.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "marquee",
+      "type": "registry:component",
+      "title": "Marquee",
+      "description": "Smooth infinite scrolling text marquee with customizable speed",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/Marquee.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/Marquee.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "interactive-card",
+      "type": "registry:component",
+      "title": "Interactive Card",
+      "description": "Card with tilt effect and animated border on hover",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/InteractiveCard.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/InteractiveCard.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "typewriter-text",
+      "type": "registry:component",
+      "title": "Typewriter Text",
+      "description": "Typewriter effect for text which can be configured as per usecases",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/new-york/ui/TypewriterText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/TypewriterText.tsx"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:component",
+      "title": "Switch",
+      "description": "Switch component that smoothly toggles the state",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/Switch.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/Switch.tsx"
+        }
+      ]
+    },
+    {
+      "name": "slide-text",
+      "type": "registry:component",
+      "title": "Slide Text",
+      "description": "Animated Slide Text component that loops through all the texts with specified delay",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/SlideText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/SlideText.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
       "name": "aurora-text",
       "type": "registry:component",
       "title": "Aurora Text",

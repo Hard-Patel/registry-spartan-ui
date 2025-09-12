@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "animated-button",
+  "type": "registry:component",
+  "title": "Animated Button",
+  "description": "A sleek button with hover animations and gradient background",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/AnimatedButton.tsx",
+      "content": "import { motion } from \"motion/react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface AnimatedButtonProps {\n  children: React.ReactNode;\n  variant?: \"primary\" | \"secondary\" | \"outline\";\n  size?: \"sm\" | \"md\" | \"lg\";\n  className?: string;\n  onClick?: () => void;\n}\n\nexport const AnimatedButton = ({\n  children,\n  variant = \"primary\",\n  size = \"md\",\n  className,\n  onClick,\n}: AnimatedButtonProps) => {\n  const variants = {\n    primary: \"bg-gradient-brand text-primary-foreground shadow-glow\",\n    secondary: \"bg-secondary text-secondary-foreground border border-border\",\n    outline:\n      \"border-gradient bg-transparent text-foreground hover:bg-primary/10\",\n  };\n\n  const sizes = {\n    sm: \"px-4 py-2 text-sm\",\n    md: \"px-6 py-3 text-base\",\n    lg: \"px-8 py-4 text-lg\",\n  };\n\n  return (\n    <motion.button\n      className={cn(\n        \"rounded-xl font-medium transition-all duration-300 relative overflow-hidden\",\n        variants[variant],\n        sizes[size],\n        className\n      )}\n      whileHover={{\n        scale: 1.05,\n        boxShadow: \"var(--glow-shadow)\",\n      }}\n      whileTap={{ scale: 0.95 }}\n      onClick={onClick}\n    >\n      <motion.div\n        className=\"absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent\"\n        initial={{ x: \"-100%\" }}\n        whileHover={{ x: \"100%\" }}\n        transition={{ duration: 0.6 }}\n      />\n      <span className=\"relative z-10\">{children}</span>\n    </motion.button>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/AnimatedButton.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

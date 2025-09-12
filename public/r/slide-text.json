@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slide-text",
+  "type": "registry:component",
+  "title": "Slide Text",
+  "description": "Animated Slide Text component that loops through all the texts with specified delay",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/SlideText.tsx",
+      "content": "import { motion, AnimatePresence } from \"motion/react\";\nimport React, { useEffect, useMemo, useState } from \"react\";\nimport { cn } from \"@/lib/utils\";\n\n// 🔹 Utility: Get longest string\nconst getLongestText = (texts: string[]) =>\n  texts.reduce((a, b) => (a.length > b.length ? a : b), \"\");\n\ninterface SlideTextProps {\n  texts: string[];\n  delay?: number;\n  loop?: boolean;\n  direction?: \"up\" | \"down\"; // slide direction\n  className?: string;\n}\n\nexport const SlideText: React.FC<SlideTextProps> = ({\n  texts,\n  delay = 2000,\n  loop = true,\n  direction = \"up\",\n  className,\n}) => {\n  const [index, setIndex] = useState(0);\n\n  const longest = useMemo(() => getLongestText(texts), [texts]);\n\n  useEffect(() => {\n    if (!loop && index >= texts.length - 1) return;\n    const timer = setTimeout(() => {\n      setIndex((prev) => (prev + 1) % texts.length);\n    }, delay);\n    return () => clearTimeout(timer);\n  }, [index, delay, texts.length, loop]);\n\n  // 🔹 Motion variants for direction\n  const variants = {\n    initial: { y: direction === \"up\" ? \"100%\" : \"-100%\", opacity: 0 },\n    animate: { y: \"0%\", opacity: 1 },\n    exit: { y: direction === \"up\" ? \"-100%\" : \"100%\", opacity: 0 },\n  };\n\n  return (\n    <div\n      className={cn(\"overflow-hidden whitespace-nowrap truncate\", className)}\n      style={{\n        minWidth: `${longest.length}ch`, // reserve width\n      }}\n    >\n      <AnimatePresence mode=\"wait\">\n        <motion.span\n          key={texts[index]}\n          variants={variants}\n          initial=\"initial\"\n          animate=\"animate\"\n          exit=\"exit\"\n          transition={{ duration: 0.4 }}\n          className=\"inline-block\"\n        >\n          {texts[index]}\n        </motion.span>\n      </AnimatePresence>\n    </div>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/SlideText.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}

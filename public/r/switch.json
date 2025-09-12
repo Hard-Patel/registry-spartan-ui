@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "type": "registry:component",
+  "title": "Switch",
+  "description": "Switch component that smoothly toggles the state",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/Switch.tsx",
+      "content": "import { motion } from \"motion/react\";\nimport { ReactNode } from \"react\";\n\ntype SwitchProps = {\n  value: boolean;\n  onToggle: () => void;\n  iconOn: ReactNode;\n  iconOff: ReactNode;\n  className?: string;\n};\n\nexport function Switch({\n  value,\n  onToggle,\n  iconOn,\n  iconOff,\n  className = \"\",\n}: SwitchProps) {\n  return (\n    <button\n      className={`bg-card-foreground/15 flex w-12 cursor-pointer rounded-full p-0.5 ${\n        value ? \"justify-end\" : \"justify-start\"\n      } ${className}`}\n      onClick={onToggle}\n    >\n      <motion.div\n        className=\"flex justify-center items-center size-6 rounded-full bg-background\"\n        layout\n        transition={{\n          type: \"spring\",\n          duration: 0.6,\n          bounce: 0.2,\n        }}\n      >\n        {value ? (\n          <motion.div\n            key=\"on\"\n            initial={{ opacity: 0, rotate: -60 }}\n            animate={{ opacity: 1, rotate: 0 }}\n            exit={{ opacity: 0, rotate: 60 }}\n            transition={{ duration: 0.3 }}\n            className=\"flex justify-center items-center size-5\"\n          >\n            {iconOn}\n          </motion.div>\n        ) : (\n          <motion.div\n            key=\"off\"\n            initial={{ opacity: 0, rotate: 60 }}\n            animate={{ opacity: 1, rotate: 0 }}\n            exit={{ opacity: 0, rotate: -60 }}\n            transition={{ duration: 0.3 }}\n            className=\"flex justify-center items-center size-5\"\n          >\n            {iconOff}\n          </motion.div>\n        )}\n      </motion.div>\n    </button>\n  );\n}\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/Switch.tsx"
+    }
+  ]
+}

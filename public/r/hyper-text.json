@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hyper-text",
+  "type": "registry:component",
+  "title": "Hyper Text",
+  "description": "Animated Hyper Text component that reveals the actual text with defined delay and animation",
+  "dependencies": [],
+  "files": [
+    {
+      "path": "registry/new-york/ui/HyperText.tsx",
+      "content": "import { useCallback, useEffect, useState } from \"react\";\n\nconst charset =\n  \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\".split(\"\");\n\n// Utility to scramble text\nfunction scrambleText(originalText: string, charset: string[]) {\n  return originalText\n    .split(\"\")\n    .map((char) =>\n      char === \" \" ? \" \" : charset[Math.floor(Math.random() * charset.length)]\n    )\n    .join(\"\");\n}\n\ninterface HyperTextToggleProps {\n  texts: string[];\n  /** ⏱ Scramble frame interval (default: 60ms) */\n  transitionDurationMs?: number;\n  /** ⏸ Hold readable text before scrambling (default: 2500ms) */\n  holdDurationMs?: number;\n}\n\nconst HyperTextToggle = ({\n  texts,\n  transitionDurationMs = 100,\n  holdDurationMs = 2500,\n}: HyperTextToggleProps) => {\n  const maxRoleLength = texts.reduce((acc, text) => {\n    if (acc < text.length) {\n      acc = text.length;\n    }\n    return acc;\n  }, texts[0].length);\n\n  const [displayText, setDisplayText] = useState(texts[0]);\n  const [currentIndex, setCurrentIndex] = useState(0);\n\n  useEffect(() => {\n    let scrambleCount = 0;\n    let scrambleInterval: NodeJS.Timeout;\n    let holdTimeout: NodeJS.Timeout;\n\n    const startScramble = () => {\n      scrambleCount = 0;\n      scrambleInterval = setInterval(() => {\n        scrambleCount++;\n        if (scrambleCount <= 8) {\n          setDisplayText(scrambleText(texts[currentIndex], charset));\n        } else {\n          clearInterval(scrambleInterval);\n          const nextIndex = (currentIndex + 1) % texts.length;\n          setCurrentIndex(nextIndex);\n          setDisplayText(texts[nextIndex]);\n          holdTimeout = setTimeout(startScramble, holdDurationMs);\n        }\n      }, transitionDurationMs);\n    };\n\n    holdTimeout = setTimeout(startScramble, holdDurationMs);\n\n    return () => {\n      clearInterval(scrambleInterval);\n      clearTimeout(holdTimeout);\n    };\n  }, [currentIndex, texts, transitionDurationMs, holdDurationMs]);\n\n  const padToMaxLength = useCallback(\n    (text: string) => {\n      const diff = maxRoleLength - text.length;\n      if (diff <= 0) return text;\n\n      const padStart = Math.floor(diff / 2);\n      const padEnd = diff - padStart;\n\n      return \" \".repeat(padStart) + text + \" \".repeat(padEnd);\n    },\n    [maxRoleLength]\n  );\n\n  return (\n    <p className=\"leading-8 text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-light\">\n      {padToMaxLength(displayText)}\n    </p>\n  );\n};\n\nexport { HyperTextToggle };\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/HyperText.tsx"
+    }
+  ]
+}
