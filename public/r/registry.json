@@ -359,7 +359,7 @@
       ]
     },
     {
-      "name": "text-reveal",
+      "name": "reveal-text",
       "type": "registry:component",
       "title": "Text Reveal",
       "description": "Text with animated effect of reveal",
