@@ -1,24 +1,22 @@
-# registry-template
+# Spartan UI Components Registry
 
-You can use the `shadcn` CLI to run your own component registry. Running your own
-component registry allows you to distribute your custom components, hooks, pages, and
-other files to any React project.
+📦 This is the **official registry** of components for the [Spartan UI Library](https://components-hardp.netlify.app/).
 
-> [!IMPORTANT]  
-> This template uses Tailwind v4. For Tailwind v3, see [registry-template-v3](https://github.com/shadcn-ui/registry-template-v3).
+All components in Spartan UI can be brought into your project directly using the **CLI** from this registry.
 
-## Getting Started
+---
 
-This is a template for creating a custom registry using Next.js.
+## 🔗 Links
 
-- The template uses a `registry.json` file to define components and their files.
-- The `shadcn build` command is used to build the registry.
-- The registry items are served as static files under `public/r/[name].json`.
-- The template also includes a route handler for serving registry items.
-- Every registry item are compatible with the `shadcn` CLI.
-- We have also added v0 integration using the `Open in v0` api.
+- 🌐 **Spartan UI Library (Docs & Demo):** [https://components-hardp.netlify.app/](https://components-hardp.netlify.app/)
+- 📂 **Registry Repository:** [Spartan UI Registry](https://components-registry.netlify.app/)
 
-## Documentation
+---
 
-Visit the [shadcn documentation](https://ui.shadcn.com/docs/registry) to view the full documentation.
-# registry-spartan-ui
+## 🛠 Usage (via CLI)
+
+Use the CLI to add any component from this registry into your project:
+
+```bash
+npx spartan-ui add <component-name>
+```
