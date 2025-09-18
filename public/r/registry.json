@@ -1,7 +1,26 @@
 {
-  "name": "Spartan UI",
-  "homepage": "https://components-registry.netlify.app/",
+  "name": "Components HardPatel",
+  "homepage": "https://components-hardp.netlify.app/",
   "items": [
+    {
+      "name": "blur-hover-text",
+      "type": "registry:component",
+      "title": "Blur Hover Text",
+      "description": "Text component which reveals the blurry text on hover effect",
+      "dependencies": ["motion", "tailwind-merge", "clsx"],
+      "files": [
+        {
+          "path": "registry/new-york/ui/BlurHoverText.tsx",
+          "type": "registry:component",
+          "target": "components/spartan-ui/BlurHoverText.tsx"
+        },
+        {
+          "path": "registry/new-york/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
     {
       "name": "hyper-text",
       "type": "registry:component",

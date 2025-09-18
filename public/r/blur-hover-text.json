@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blur-hover-text",
+  "type": "registry:component",
+  "title": "Blur Hover Text",
+  "description": "Text component which reveals the blurry text on hover effect",
+  "dependencies": [
+    "motion",
+    "tailwind-merge",
+    "clsx"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/ui/BlurHoverText.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\nimport { motion } from \"motion/react\";\n\ninterface BlurHoverTextProps {\n  children: React.ReactNode;\n  /** How much blur to apply initially (in px) */\n  blurRadius?: number;\n  /** Extra Tailwind/utility classes */\n  className?: string;\n  /** Duration of blur transition (in seconds) */\n  duration?: number;\n}\n\nexport const BlurHoverText = ({\n  children,\n  blurRadius = 4,\n  className = \"\",\n  duration = 0.3,\n}: BlurHoverTextProps) => {\n  return (\n    <motion.div\n      className={cn(className, `text-5xl inline-block cursor-pointer`)}\n      initial={{ filter: `blur(${blurRadius}px)` }}\n      whileHover={{ filter: \"blur(0px)\" }}\n      transition={{\n        duration,\n        ease: \"easeInOut\",\n      }}\n    >\n      {children}\n    </motion.div>\n  );\n};\n",
+      "type": "registry:component",
+      "target": "components/spartan-ui/BlurHoverText.tsx"
+    },
+    {
+      "path": "registry/new-york/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { twMerge } from \"tailwind-merge\"\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ]
+}
