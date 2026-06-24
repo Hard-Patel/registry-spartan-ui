@@ -1,6 +1,6 @@
 # Spartan UI Components Registry
 
-📦 This is the **official registry** of components for the [Spartan UI Library](https://components-hardp.netlify.app/).
+📦 This is the **official registry** of components for the [Spartan UI Library](https://components.hardp.in/).
 
 All components in Spartan UI can be brought into your project directly using the **CLI** from this registry.
 
@@ -8,8 +8,8 @@ All components in Spartan UI can be brought into your project directly using the
 
 ## 🔗 Links
 
-- 🌐 **Spartan UI Library (Docs & Demo):** [https://components-hardp.netlify.app/](https://components-hardp.netlify.app/)
-- 📂 **Registry Repository:** [Spartan UI Registry](https://components-registry.netlify.app/)
+- 🌐 **Spartan UI Library (Docs & Demo):** [https://components.hardp.in/](https://components.hardp.in/)
+- 📂 **Registry Repository:** [Spartan UI Registry](https://registry.hardp.in/)
 
 ---
 
