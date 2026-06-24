@@ -12,9 +12,9 @@ export default function Home() {
             Visit Website:{" "}
             <a
               className="text-blue-500 underline"
-              href="https://components.hardp.in/"
+              href="https://components-hardp.netlify.app/"
             >
-              https://components.hardp.in/
+              https://components-hardp.netlify.app/
             </a>
           </span>
           <p className="text-muted-foreground">
@@ -27,7 +27,7 @@ export default function Home() {
             <a
               target="_blank"
               className="text-blue-500 underline"
-              href="https://hardp.in/"
+              href="https://hard-patel.netlify.app/"
             >
               Hard Patel
             </a>
